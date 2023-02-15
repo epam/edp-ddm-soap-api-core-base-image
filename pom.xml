@@ -6,13 +6,13 @@
 
 	<groupId>com.epam.digital.data.platform</groupId>
 	<artifactId>soap-api-core</artifactId>
-	<version>1.6.0</version>
+	<version>1.9.0</version>
 
 	<name>soap-api-core</name>
 	<description>SOAP API classes, which do not require templating</description>
 
 	<properties>
-		<model.core.version>1.6.0.60</model.core.version>
+		<model.core.version>1.9.4.1</model.core.version>
 		<ddm.starter.logger.version>1.6.0.1</ddm.starter.logger.version>
 		<ddm.starter.actuator.version>1.6.0.1</ddm.starter.actuator.version>
 		<ddm.starter.audit.version>1.6.0.1</ddm.starter.audit.version>
