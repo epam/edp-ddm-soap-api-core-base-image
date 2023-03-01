@@ -21,7 +21,7 @@
 		<java.version>11</java.version>
 		<log4j.version>2.17.0</log4j.version>
 		<keycloak-core.version>15.1.1</keycloak-core.version>
-		<spring.boot.version>2.6.1</spring.boot.version>
+		<spring.boot.version>2.6.14</spring.boot.version>
 		<spring.cloud.version>2021.0.0</spring.cloud.version>
 		<jackson-databind.version>2.13.4</jackson-databind.version>
 		<cxf.version>3.4.3</cxf.version>
