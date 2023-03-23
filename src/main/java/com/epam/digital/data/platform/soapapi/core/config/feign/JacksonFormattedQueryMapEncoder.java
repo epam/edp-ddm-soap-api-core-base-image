@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 EPAM Systems.
+ * Copyright 2023 EPAM Systems.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,23 +22,26 @@ import feign.QueryMapEncoder;
 import feign.codec.EncodeException;
 
 import java.util.Map;
+import java.util.Objects;
 
 class JacksonFormattedQueryMapEncoder implements QueryMapEncoder {
 
-    private final ObjectMapper objectMapper;
+  private final ObjectMapper objectMapper;
 
-    public JacksonFormattedQueryMapEncoder(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
+  public JacksonFormattedQueryMapEncoder(ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
+  }
 
-    @Override
-    public Map<String, Object> encode(Object o) {
-        try {
-            TypeReference<Map<String, Object>> reference = new TypeReference<>() {
-            };
-            return objectMapper.convertValue(o, reference);
-        } catch (Exception e) {
-            throw new EncodeException("Failure encoding object into query map", e);
-        }
+  @Override
+  public Map<String, Object> encode(Object o) {
+    try {
+      TypeReference<Map<String, Object>> reference = new TypeReference<>() {
+      };
+      var params = objectMapper.convertValue(o, reference);
+      params.values().removeIf(Objects::isNull);
+      return params;
+    } catch (Exception e) {
+      throw new EncodeException("Failure encoding object into query map", e);
     }
+  }
 }
