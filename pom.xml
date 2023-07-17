@@ -24,7 +24,7 @@
 		<spring.boot.version>2.6.14</spring.boot.version>
 		<spring.cloud.version>2021.0.0</spring.cloud.version>
 		<jackson-databind.version>2.13.4</jackson-databind.version>
-		<cxf.version>3.4.3</cxf.version>
+		<cxf.version>3.4.10</cxf.version>
 		<keycloak.version>12.0.3</keycloak.version>
 		<spring.boot.starter.web.version>2.6.6</spring.boot.starter.web.version>
 		<sonar.coverage.exclusions>
