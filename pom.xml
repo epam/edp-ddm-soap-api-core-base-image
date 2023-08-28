@@ -12,7 +12,7 @@
 	<description>SOAP API classes, which do not require templating</description>
 
 	<properties>
-		<model.core.version>1.9.4.1</model.core.version>
+		<model.core.version>1.9.4.9</model.core.version>
 		<ddm.starter.logger.version>1.6.0.9</ddm.starter.logger.version>
 		<ddm.starter.actuator.version>1.6.0.1</ddm.starter.actuator.version>
 		<ddm.starter.audit.version>1.6.0.1</ddm.starter.audit.version>
