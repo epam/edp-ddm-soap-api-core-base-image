@@ -29,7 +29,8 @@ import com.epam.digital.data.platform.soapapi.core.util.SoapHeaders;
 public class EndpointRequestAuditAspect {
 
   // action
-  private static final String SEARCH = "SEARCH ENTITY";
+  static final String SEARCH = "SEARCH ENTITY";
+  static final String READ_FILE = "READ ENTITY FILE FIELD";
 
   // step
   private static final String BEFORE = "BEFORE";
@@ -52,11 +53,24 @@ public class EndpointRequestAuditAspect {
       throws Throwable {
     auditSourceInfoProcessor.initSourceInfo(headers);
 
-    String methodName = joinPoint.getSignature().getName();
+    var methodName = joinPoint.getSignature().getName();
 
     soapAuditFacade.auditSoapRetrieveRequest(methodName, SEARCH, BEFORE);
     Object result = joinPoint.proceed();
     soapAuditFacade.auditSoapRetrieveRequest(methodName, SEARCH, AFTER);
+    return result;
+  }
+
+  @Around("withinWebServicePointcut() && args(id, fileId, headers)")
+  Object auditReadRequest(ProceedingJoinPoint joinPoint, Object id, String fileId, SoapHeaders headers)
+          throws Throwable {
+    auditSourceInfoProcessor.initSourceInfo(headers);
+
+    var methodName = joinPoint.getSignature().getName();
+
+    soapAuditFacade.auditSoapRetrieveRequest(methodName, READ_FILE, BEFORE);
+    Object result = joinPoint.proceed();
+    soapAuditFacade.auditSoapRetrieveRequest(methodName, READ_FILE, AFTER);
     return result;
   }
 }

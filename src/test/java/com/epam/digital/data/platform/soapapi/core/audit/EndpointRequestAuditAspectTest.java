@@ -16,21 +16,23 @@
 
 package com.epam.digital.data.platform.soapapi.core.audit;
 
-import static com.epam.digital.data.platform.soapapi.core.utils.EndpointTestUtil.getMockHeaders;
-import static org.mockito.Mockito.verify;
-
-import com.epam.digital.data.platform.soapapi.core.audit.EndpointRequestAuditAspect;
 import com.epam.digital.data.platform.soapapi.core.config.TestConfig;
 import com.epam.digital.data.platform.soapapi.core.converter.HeadersProvider;
 import com.epam.digital.data.platform.soapapi.core.endpoint.TestEndpointHandler;
 import com.epam.digital.data.platform.soapapi.core.restclients.TestRestApiClient;
-import com.epam.digital.data.platform.soapapi.core.audit.SoapAuditFacade;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+
+import java.util.UUID;
+
+import static com.epam.digital.data.platform.soapapi.core.audit.EndpointRequestAuditAspect.READ_FILE;
+import static com.epam.digital.data.platform.soapapi.core.audit.EndpointRequestAuditAspect.SEARCH;
+import static com.epam.digital.data.platform.soapapi.core.utils.EndpointTestUtil.getMockHeaders;
+import static org.mockito.Mockito.verify;
 
 @Import({AopAutoConfiguration.class})
 @SpringBootTest(classes = {EndpointRequestAuditAspect.class, TestConfig.class})
@@ -52,9 +54,21 @@ class EndpointRequestAuditAspectTest {
 
     verify(soapAuditFacade)
         .auditSoapRetrieveRequest(
-            "search", "SEARCH ENTITY", "BEFORE");
+            "search", SEARCH, "BEFORE");
     verify(soapAuditFacade)
         .auditSoapRetrieveRequest(
-            "search", "SEARCH ENTITY", "AFTER");
+            "search", SEARCH, "AFTER");
+  }
+
+  @Test
+  void expectAuditAspectCalledBeforeAndAfterReadFileHandler() {
+    endpointHandler.readFile(UUID.randomUUID(), "fileId", getMockHeaders());
+
+    verify(soapAuditFacade)
+            .auditSoapRetrieveRequest(
+                    "readFile", READ_FILE, "BEFORE");
+    verify(soapAuditFacade)
+            .auditSoapRetrieveRequest(
+                    "readFile", READ_FILE, "AFTER");
   }
 }

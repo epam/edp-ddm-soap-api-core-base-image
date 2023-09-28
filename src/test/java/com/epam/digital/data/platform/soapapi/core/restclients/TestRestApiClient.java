@@ -16,10 +16,15 @@
 
 package com.epam.digital.data.platform.soapapi.core.restclients;
 
+import com.epam.digital.data.platform.model.core.file.FileResponseDto;
+
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public interface TestRestApiClient {
 
   List<Object> search(Object searchConditions, Map<String, Object> headers);
+
+  FileResponseDto readFile(UUID id, String fileId, Map<String, Object> headers);
 }

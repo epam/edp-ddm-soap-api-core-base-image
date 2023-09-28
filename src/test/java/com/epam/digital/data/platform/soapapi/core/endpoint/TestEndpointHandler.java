@@ -16,11 +16,13 @@
 
 package com.epam.digital.data.platform.soapapi.core.endpoint;
 
+import com.epam.digital.data.platform.model.core.file.FileResponseDto;
 import com.epam.digital.data.platform.soapapi.core.converter.HeadersProvider;
 import com.epam.digital.data.platform.soapapi.core.restclients.TestRestApiClient;
 import com.epam.digital.data.platform.soapapi.core.util.SoapHeaders;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
@@ -40,5 +42,13 @@ public class TestEndpointHandler implements IEndpointHandler {
       @WebParam(header = true, name = "headers") SoapHeaders headers) {
     Map<String, Object> headersMap = headersProvider.createHttpHeaders(headers);
     return restApiClient.search(searchConditions, headersMap);
+  }
+
+  public FileResponseDto readFile(
+          @WebParam(name = "id") UUID id,
+          @WebParam(name = "fileId") String fileId,
+          @WebParam(header = true, name = "headers") SoapHeaders headers) {
+    Map<String, Object> headersMap = headersProvider.createHttpHeaders(headers);
+    return restApiClient.readFile(id, fileId, headersMap);
   }
 }
